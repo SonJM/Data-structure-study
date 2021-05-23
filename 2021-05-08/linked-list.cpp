@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// C++ ì—ì„œëŠ” ì‚¬ìš©ì ì •ì˜ 'ì§‘ê³„ ë°ì´í„° ìœ í˜•(user-defined aggregate data type)'ì„ ìƒì„±í•  ìˆ˜ ìˆë‹¤.
-// ì§‘ê³„ ë°ì´í„° ìœ í˜• : ì—¬ëŸ¬ ê°œë³„ ë³€ìˆ˜ë¥¼ í•¨ê»˜ ê·¸ë£¹í™”í•˜ëŠ” ë°ì´í„° ìœ í˜• --> êµ¬ì¡°ì²´(struct)
-// êµ¬ì¡°ì²´ : í•˜ë‚˜ ì´ìƒì˜ ë³€ìˆ˜ë¥¼ ê·¸ë£¹ ì§€ì–´ì„œ ìƒˆë¡œìš´ ìë£Œí˜•ì„ ì •ì˜í•˜ëŠ” ê²ƒ ( ë©¤ë²„, í•„ë“œ )
-// C++ 11ì—ì„œëŠ” ì´ˆê¸°ê°’ ì„¤ì • ì•ˆí•˜ë©´ defaultê°’ìœ¼ë¡œ ì´ˆê¸°í™”, ê·¸ ì „ê¹Œì§„ ì“°ë ˆê¸° ê°’ì´ ëŒ€ì…
+// C++ ¿¡¼­´Â »ç¿ëÀÚ Á¤ÀÇ 'Áı°è µ¥ÀÌÅÍ À¯Çü(user-defined aggregate data type)'À» »ı¼ºÇÒ ¼ö ÀÖ´Ù.
+// Áı°è µ¥ÀÌÅÍ À¯Çü : ¿©·¯ °³º° º¯¼ö¸¦ ÇÔ²² ±×·ìÈ­ÇÏ´Â µ¥ÀÌÅÍ À¯Çü --> ±¸Á¶Ã¼(struct)
+// ±¸Á¶Ã¼ : ÇÏ³ª ÀÌ»óÀÇ º¯¼ö¸¦ ±×·ì Áö¾î¼­ »õ·Î¿î ÀÚ·áÇüÀ» Á¤ÀÇÇÏ´Â °Í ( ¸â¹ö, ÇÊµå )
+// C++ 11¿¡¼­´Â ÃÊ±â°ª ¼³Á¤ ¾ÈÇÏ¸é default°ªÀ¸·Î ÃÊ±âÈ­, ±× Àü±îÁø ¾²·¹±â °ªÀÌ ´ëÀÔ
 typedef struct stack {
     int data;
-    struct stack* next;     // ìê¸° ì°¸ì¡° êµ¬ì¡°ì²´
+    struct stack* next;     
     struct stack* prev;
 }stack;
 
@@ -18,11 +18,11 @@ typedef struct tree {
 }tree;
 
 tree* init() {
-    tree* newTree = (tree*)malloc(sizeof(tree));        // sizeof(tree) = 12(byte) / newTree êµ¬ì¡°ì²´ í¬ì¸í„°ì— ë©”ëª¨ë¦¬ í• ë‹¹
+    tree* newTree = (tree*)malloc(sizeof(tree));        // sizeof(tree) = 12(byte) / newTree ±¸Á¶Ã¼ Æ÷ÀÎÅÍ¿¡ ¸Ş¸ğ¸® ÇÒ´ç
 
     newTree->head = NULL;
-    newTree->tail = NULL;
-    newTree->count = 0;
+    newTree->count = 0;     
+    // tail±¸Á¶Ã¼ Æ÷ÀÎÅÍ¿¡´Â ÃÊ±âÈ­°¡ µû·Î ÇÊ¿ä ¾ø´Â°Ç°¡,,?
     return newTree;
 }
 
@@ -33,7 +33,7 @@ void print(tree* newTree);
 int main(int argc, char** argv) {
     tree* newTree = init();
     for (int i = 0; i < 10; i++) {
-        push_stack(i, newTree);     // 10ë²ˆ push_stackí•œë‹¤
+        push_stack(i, newTree);     // 10¹ø push_stackÇÑ´Ù
     }
     print(newTree);
 
@@ -41,7 +41,7 @@ int main(int argc, char** argv) {
     for (int i = 0; i < newTree->count; i++) {
         memclear(newTree);
     }
-    free(newTree);
+    free(newTree);      // memclearÀÚÃ¼°¡ ¸Ş¸ğ¸®¸¦ ºÂÈ¯ÇÏ´Â ÄÚµå·Î º¸ÀÌÁø ¾Ê´Â´Ù,,?
 
     return 0;
 }
@@ -59,7 +59,7 @@ void push_stack(int data, tree* newTree) {
     }
     else {
         for (int i = 1; i < newTree->count; i++) {
-            preStack = preStack->next;      ////////////////////////////////////////////////////////////////////////////////////
+            preStack = preStack->next;
         }
         preStack->next = newStack;
         preStack->next->prev = preStack;
@@ -78,7 +78,7 @@ stack* memclear(tree* newTree) {
 void print(tree* newTree) {
     stack* curStack;
     int i;
-    printf("ìŠ¤íƒ ìë£Œêµ¬ì¡°ëŠ” LIFO (Last in First out)\n");
+    printf("½ºÅÃ ÀÚ·á±¸Á¶´Â LIFO (Last in First out)\n");
     for (i = 0, curStack = newTree->tail; i < newTree->count; i++, curStack = curStack->prev) {
         printf("%d ", curStack->data);
     }
