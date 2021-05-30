@@ -13,7 +13,7 @@ typedef struct tree {
 }tree;
 
 void create(int data, tree* newTree);
-node* memclear(tree* newTree);
+void memclear(tree* newTree);
 void print(tree* newTree);
 
 tree* init() {
@@ -28,13 +28,14 @@ tree* init() {
 
 int main(int argc, char** argv) {
 	tree* newTree = init();
+	int count = newTree->count;
 	for (int i = 0; i < 10; i++) {
 		create(i, newTree);
 	}
 	print(newTree);
 
 	printf("memory return\n");
-	for (int i = 0; i < newTree->count; i++) {
+	for (int i = 0; i < count; i++) {
 		memclear(newTree);
 	}
 	free(newTree);
@@ -62,11 +63,12 @@ void create(int data, tree* newTree) {
 	newTree->count++;
 }
 
-node* memclear(tree* newTree) {
+void memclear(tree* newTree) {
 	node* curNode;
 	curNode = newTree->head;
 	newTree->head = curNode->link;
-	return curNode;
+	free(curNode);
+	newTree->count--;
 }
 
 void print(tree* newTree) {
