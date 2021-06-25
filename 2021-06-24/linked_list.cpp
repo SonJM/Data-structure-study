@@ -79,7 +79,7 @@ node* put_back(tree* Tree) {
     return curNode;
 }
 
-node* put_back(tree* Tree, int data) {   // Áß°£ »èÁ¦
+node* put_back(tree* Tree, int data) {   // ì¤‘ê°„ ì‚­ì œ
     node* curNode = Tree->head;
     node* preNode;
     while (true) {
@@ -99,8 +99,11 @@ void mid_insert(tree* Tree, int data, int index) {
 
     newNode->data = data;
     Tree->count++;
-    for (int i = 1; i < index; i++) {
-        curNode = curNode->next;
+    if(index > Tree->count) curNode = Tree->tail;
+    else {
+        for (int i = 1; i < index; i++) {
+            curNode = curNode->next;
+        }
     }
     if (index == 0) {
         newNode->next = curNode;
@@ -153,24 +156,24 @@ int main() {
     tree* Tree = init();
     int node_size, node_data, index, choice;
 
-    printf("»ı¼ºÇÒ ³ëµåÀÇ °¹¼ö: ");
+    printf("ìƒì„±í•  ë…¸ë“œì˜ ê°¯ìˆ˜: ");
     scanf("%d", &node_size);
     for (int i = 0; i < node_size; i++) {
-        printf("%d¹øÂ° ³ëµå µ¥ÀÌÅÍ ÀÔ·Â: ", i + 1);
+        printf("%dë²ˆì§¸ ë…¸ë“œ ë°ì´í„° ì…ë ¥: ", i + 1);
         scanf("%d", &node_data);
         insert(Tree, node_data);
     }
     printf("\n");
-    printf("³ëµå »ı¼º ¿Ï·á\n");
+    printf("ë…¸ë“œ ìƒì„± ì™„ë£Œ\n");
     while (true) {
-        printf("-----------±â´É ¼±ÅÃ----------\n");
-        printf("1. »ğÀÔ\n2. »èÁ¦(tail)\n3. °Ë»ö\n4. Áß°£»ğÀÔ\n5. Áß°£»èÁ¦\n6. Ãâ·Â\n7. ¿À¸§Â÷¼ø Á¤·Ä\n8. ³»¸²Â÷¼ø Á¤·Ä\n9. ÀüÃ¼»èÁ¦\n");
+        printf("-----------ê¸°ëŠ¥ ì„ íƒ----------\n");
+        printf("1. ì‚½ì…\n2. ì‚­ì œ(tail)\n3. ê²€ìƒ‰\n4. ì¤‘ê°„ì‚½ì…\n5. ì¤‘ê°„ì‚­ì œ\n6. ì¶œë ¥\n7. ì˜¤ë¦„ì°¨ìˆœ ì •ë ¬\n8. ë‚´ë¦¼ì°¨ìˆœ ì •ë ¬\n9. ì „ì²´ì‚­ì œ\n");
         printf("-----------------------------\n");
         scanf("%d", &choice);
         switch (choice) {
         case 1:
         {
-            printf("»ğÀÔ(insert)ÇÒ µ¥ÀÌÅÍ °ª: ");
+            printf("ì‚½ì…(insert)í•  ë°ì´í„° ê°’: ");
             scanf("%d", &node_data);
             insert(Tree, node_data);
             break;
@@ -178,50 +181,50 @@ int main() {
         case 2:
         {
             free(put_back(Tree));
-            printf("Á¦°Å ¿Ï·á\n");
+            printf("ì œê±° ì™„ë£Œ\n");
             break;
         }
         case 3:
         {
-            printf("°Ë»ö(search)ÇÒ µ¥ÀÌÅÍ °ª: ");
+            printf("ê²€ìƒ‰(search)í•  ë°ì´í„° ê°’: ");
             scanf("%d", &node_data);
             search(Tree, node_data);
             break;
         }
         case 4:
         {
-            printf("-----------Áß°£ »ğÀÔ----------\n");
-            printf("»ğÀÔÇÒ µ¥ÀÌÅÍ: ");
+            printf("-----------ì¤‘ê°„ ì‚½ì…----------\n");
+            printf("ì‚½ì…í•  ë°ì´í„°: ");
             scanf("%d", &node_data);
-            printf("»ğÀÔÇÒ À§Ä¡: ");
+            printf("ì‚½ì…í•  ìœ„ì¹˜: ");
             scanf("%d", &index);
             mid_insert(Tree, node_data, index);
             break;
         }
         case 5:
         {
-            printf("-----------Áß°£ »èÁ¦----------\n");
-            printf("»èÁ¦ÇÒ µ¥ÀÌÅÍ: ");
+            printf("-----------ì¤‘ê°„ ì‚­ì œ----------\n");
+            printf("ì‚­ì œí•  ë°ì´í„°: ");
             scanf("%d", &node_data);
             free(put_back(Tree, node_data));
             break;
         }
         case 6:
         {
-            printf("-----------³ëµå Ãâ·Â----------\n");
+            printf("-----------ë…¸ë“œ ì¶œë ¥----------\n");
             print(Tree);
             break;
         }
         case 7:
         {
             ascending_order(Tree);
-            printf("¿À¸§Â÷¼ø Á¤·Ä ¿Ï·á\n");
+            printf("ì˜¤ë¦„ì°¨ìˆœ ì •ë ¬ ì™„ë£Œ\n");
             break;
         }
         case 8:
         {
             descending_order(Tree);
-            printf("³»¸²Â÷¼ø Á¤·Ä ¿Ï·á\n");
+            printf("ë‚´ë¦¼ì°¨ìˆœ ì •ë ¬ ì™„ë£Œ\n");
             break;
         }
         case 9:
