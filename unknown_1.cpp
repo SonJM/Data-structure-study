@@ -11,6 +11,7 @@ typedef struct node {
 
 typedef struct tree {
     struct tree* next;
+    struct tree* prev
     int data;
 }tree;
 
